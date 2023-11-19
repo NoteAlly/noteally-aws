@@ -1,5 +1,7 @@
 .env
 
+keys/aws-key-api
+
 # Local .terraform directories
 **/.terraform/*
 

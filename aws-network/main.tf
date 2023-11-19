@@ -4,11 +4,11 @@ terraform {
 
 
 #
-# INSTANCE
+# VPC
 #
 
 resource "aws_vpc" "noteally_vpc" {
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.0.0/16"
 
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -22,26 +22,8 @@ resource "aws_vpc" "noteally_vpc" {
 
 
 #
-# Subnets
+# SUBNETS
 #
-
-variable "public_subnet_cidrs" {
-  type        = list(string)
-  description = "Public Subnet CIDR values"
-  default     = ["10.0.0.0/25"]
-}
-
-variable "private_subnet_cidrs" {
-  type        = list(string)
-  description = "Private Subnet CIDR values"
-  default     = ["10.0.0.128/25"]
-}
-
-variable "azs" {
-  type        = list(string)
-  description = "Availability Zones"
-  default     = ["us-east-1a"]
-}
 
   #
   # Public Subnet
