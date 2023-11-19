@@ -472,7 +472,7 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
 resource "aws_api_gateway_resource" "api_gateway_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_gateway.id
   parent_id   = aws_api_gateway_rest_api.api_gateway.root_resource_id
-  path_part   = "test"
+  path_part   = "books"
 }
 
 resource "aws_api_gateway_method" "example" {
@@ -480,6 +480,7 @@ resource "aws_api_gateway_method" "example" {
   http_method   = "GET"
   resource_id   = aws_api_gateway_resource.api_gateway_resource.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
+
 }
 
 resource "aws_api_gateway_integration" "test" {
@@ -545,6 +546,7 @@ resource "aws_cognito_user_pool" "user_pool" {
     email_message = "Your confirmation code is {####}"
   }
 
+  # email
   schema {
     attribute_data_type      = "String"
     developer_only_attribute = false
@@ -589,14 +591,28 @@ resource "aws_cognito_user_pool" "user_pool" {
 
 
 #
+# USER POOL DOMAIN
+#
+
+resource "aws_cognito_user_pool_domain" "user_pool_domain" {
+  domain        = "noteally"
+  user_pool_id  = aws_cognito_user_pool.user_pool.id
+}
+
+
+#
 # USER POOL CLIENT
 #
 
 resource "aws_cognito_user_pool_client" "userpool_client" {
   name = "userpool-client"
   user_pool_id = aws_cognito_user_pool.user_pool.id
+  callback_urls = ["http://${aws_lb.network_load_balancer.dns_name}:5173/materials"]
+  logout_urls = ["http://${aws_lb.network_load_balancer.dns_name}:5173/index"]
 
-  generate_secret = true
-  explicit_auth_flows = ["ALLOW_USER_SRP_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
-  allowed_oauth_flows = ["code"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows = ["code, implicit"]
+  explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_USER_SRP_AUTH"]
+  allowed_oauth_scopes = ["email", "openid"]
+  supported_identity_providers = ["COGNITO"]
 }
