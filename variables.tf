@@ -13,13 +13,13 @@ variable "public_subnet_cidrs" {
 variable "private_subnet_cidrs" {
   type        = list(string)
   description = "Private Subnet CIDR values"
-  default     = ["10.0.1.0/24"]
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "azs" {
   type        = list(string)
   description = "Availability Zones"
-  default     = ["eu-north-1a"]
+  default     = ["eu-north-1a", "eu-north-1b"]
 }
 
 variable "get_endpoints" {
