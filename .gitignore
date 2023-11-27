@@ -1,4 +1,5 @@
 .env
+venv/
 
 keys/aws-key-api
 

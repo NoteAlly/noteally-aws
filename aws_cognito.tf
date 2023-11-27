@@ -80,7 +80,7 @@ resource "aws_cognito_user_pool_client" "userpool_client" {
   name          = "userpool-client"
   user_pool_id  = aws_cognito_user_pool.user_pool.id
   callback_urls = ["https://${local.envs["FRONTEND_BRANCH"]}.${aws_amplify_app.web_app.default_domain}"]
-  logout_urls   = ["https://${local.envs["FRONTEND_BRANCH"]}.${aws_amplify_app.web_app.default_domain}/teste"]
+  logout_urls   = ["https://${local.envs["FRONTEND_BRANCH"]}.${aws_amplify_app.web_app.default_domain}"]
 
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["implicit"]
