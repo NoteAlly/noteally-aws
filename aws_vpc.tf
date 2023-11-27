@@ -85,6 +85,10 @@ resource "aws_nat_gateway" "nat_gateway" {
   tags = {
     Name = "noteally_nat_gateway"
   }
+
+  depends_on = [
+    aws_internet_gateway.igw
+  ]
 }
 
 
@@ -130,6 +134,7 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_subnet_association" {
-  subnet_id      = aws_subnet.private_subnet[0].id
+  count          = length(var.private_subnet_cidrs)
+  subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.private_rt.id
 }
