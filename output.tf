@@ -2,6 +2,11 @@
 # AWS AMPLIFY
 #
 
+output "amplify_app_id" {
+  value       = aws_amplify_app.web_app.id
+  description = "AWS Amplify App ID"
+}
+
 output "amplify_domain" {
   value       = aws_amplify_app.web_app.default_domain
   description = "AWS Amplify Domain"
@@ -25,6 +30,11 @@ output "api_gateway_url" {
 output "cognito_client_id" {
   value       = aws_cognito_user_pool_client.userpool_client.id
   description = "Cognito Client ID"
+}
+
+output "cognito_client_domain" {
+  value       = aws_cognito_user_pool_domain.user_pool_domain.domain
+  description = "Cognito Client Domain"
 }
 
 output "cognito_callback_url" {
@@ -68,6 +78,7 @@ output "rds_endpoint" {
   value       = aws_db_instance.postgres_db.endpoint
   description = "RDS Endpoint"
 }
+
 
 #
 # AWS NLB

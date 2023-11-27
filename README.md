@@ -1,58 +1,72 @@
-# noteally-aws
+# Build AWS infrastructure
 
-This repository contains the scripts used to create the AWS infrastructure for the NoteAlly project. The scripts are written in Terraform. The scripts are divided into folders according to their purpose, for example, the scripts that create the AWS Network are in the network folder.
+This repository contains the scripts used to create the AWS infrastructure for the NoteAlly project. The scripts are written in Terraform, and some final configurations are made using the Boto3 library for Python.
+
+The infrastructure consists of the following resources:
+![Infrastructure Resources](images/infrastructure_v1.png)
 
 ## How to run
 
-To be able to run the script, or to be able to create a new one based on this template, you need to do the following:
+To be able to build the infrastructure, you need to do the following steps:
 
-- Clone the project:
-
+### 1. Clone this repository  
 ```bash
 git clone git@github.com:NoteAlly/noteally-aws.git
 ```
 
-- Install Terraform:
+### 2. Install Terraform
+https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+
+### 3. Install AWS CLI 
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+
+### 4. Setup environment variables
+Create a file named .env in the root directory of the project and add the following variables:
 
 ```bash
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-
-wget -O- https://apt.releases.hashicorp.com/gpg | \
-gpg --dearmor | \
-sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-
-gpg --no-default-keyring \
---keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
---fingerprint
-
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-sudo tee /etc/apt/sources.list.d/hashicorp.list
-
-
-sudo apt update
-
-sudo apt-get install terraform
-```
-
-- Inside the project folder, create a file named .env and add the following variables:
-
-```bash
+# AWS
 AWS_ACCESS_KEY_ID=<your_aws_access_key_id>
 AWS_SECRET_ACCESS_KEY=<your_aws_secret_access_key>
-AWS_SESSION_TOKEN=<your_aws_session_token>
 AWS_DEFAULT_REGION=<your_region_name>
+AWS_S3_BUCKET_NAME=<your_s3_bucket_name>
+
+# Github
+GITHUB_PAT=<your_github_personal_access_token>
+FRONTEND_REPO=NoteAlly/noteally-frontend
+FRONTEND_BRANCH=main
+
+# Django
+DJANGO_KEY=<your_django_key>
+
+# Postgres
+DB_IDENTIFIER=<your_db_identifier>
+DB_NAME=<your_db_name>
+DB_USERNAME=<your_db_username>
+DB_PASSWORD=<your_db_password>
+DB_PORT=<your_db_port>
 ```
 
-If you are using aws academy sandbox, put us-east-1 as region_name to use the free tier.
-
-If you are not using aws academy, choose a region that is available for you and remove the line AWS_SESSION_TOKEN from the .env file and the token variable from the aws provider in the main.tf file in the root directory.
-
-- Run the following commands:
+### 5. Setup python virtual environment
+After setting up the infrastructure using Terraform, there are some configurations that need to be made using the Boto3 library for Python. To do this, you need to create a virtual environment and install the dependencies.
 
 ```bash
-terraform init
-terraform validate
-terraform plan
-terraform apply
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 6. Build the infrastructure
+On the root directory of the project, run the following command:
+    
+```bash
+./scripts/run.sh
+```
+
+### 7. Destroy the infrastructure
+On the root directory of the project, run the following command:
+    
+```bash
+./scripts/destroy.sh
 ```
