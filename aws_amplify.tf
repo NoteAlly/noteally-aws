@@ -6,7 +6,8 @@ resource "aws_amplify_app" "web_app" {
   name         = "noteally web app"
   platform     = "WEB"
   repository   = local.envs["FRONTEND_REPO"]
-  access_token = local.envs["FRONTEND_ACCE"]
+  access_token = local.envs["GITHUB_PAT"]
+
 
   build_spec = <<-EOT
         version: 1
@@ -26,6 +27,13 @@ resource "aws_amplify_app" "web_app" {
                 paths:
                     - node_modules/**/*
   EOT
+
+  # Redirects for Single Page Web Apps (SPA)
+  custom_rule {
+    source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/>"
+    status = "200"
+    target = "/index.html"
+  }
 }
 
 
