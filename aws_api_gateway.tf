@@ -14,8 +14,8 @@ resource "aws_api_gateway_vpc_link" "api_gateway_vpc_link" {
 #
 
 resource "aws_api_gateway_rest_api" "api_gateway" {
-  name        = "api_gateway"
-  description = "API Gateway"
+  name               = "api_gateway"
+  description        = "API Gateway"
   binary_media_types = ["*/*"]
 }
 
