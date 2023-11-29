@@ -23,10 +23,10 @@ git clone "https://github.com/pedro535/django-ec2.git"
 cd django-ec2
 
 # Build Image
-sudo docker build -t project-image .
+docker build -t project-image .
 
 # Run Docker container
-sudo docker run -d -p 8000:8000 --name project-container \
+docker run -d -p 8000:8000 --name project-container \
                             -e DJANGO_KEY=${DJANGO_KEY} \
                             -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
                             -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \

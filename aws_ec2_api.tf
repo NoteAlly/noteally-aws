@@ -70,7 +70,7 @@ resource "aws_key_pair" "aws_key_api" {
 
 locals {
   user_data = templatefile(
-    "scripts/init_ec2_api.sh",
+    "scripts/ec2_api_container_init.sh",
     {
       DJANGO_KEY            = local.envs["DJANGO_KEY"]
       AWS_ACCESS_KEY_ID     = local.envs["AWS_ACCESS_KEY_ID"]
