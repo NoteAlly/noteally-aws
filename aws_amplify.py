@@ -9,7 +9,7 @@ if __name__=='__main__':
     # AWS Client
     client = boto3.client(
         service_name = 'amplify',
-        region_name = os.environ.get('AWS_DEFAULT_REGION'),
+        region_name = os.environ.get('AWS_REGION_NAME'),
         aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID'),
         aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
     )

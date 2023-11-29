@@ -27,3 +27,9 @@ variable "get_endpoints" {
   description = "API Get Endpoints"
   default     = ["/api/v1/insert", "/api/v1/books", "/api/v1/books/{id}"]
 }
+
+variable "ec2_cloudwatch_role" {
+  type        = string
+  description = "EC2 role to allow EC2 connect to Cloudwatch"
+  default     = "ec2_cloudwatch"
+}
