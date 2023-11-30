@@ -8,7 +8,9 @@ resource "aws_instance" "ec2_api" {
   key_name               = aws_key_pair.aws_key_api.key_name
   subnet_id              = aws_subnet.private_subnet[0].id
   vpc_security_group_ids = [aws_security_group.api_sg.id]
+  iam_instance_profile   = var.ec2_cloudwatch_role
   user_data              = local.user_data
+
   depends_on = [
     aws_internet_gateway.igw,
     aws_nat_gateway.nat_gateway
@@ -70,18 +72,18 @@ locals {
   user_data = templatefile(
     "scripts/ec2_api_container_init.sh",
     {
-      DJANGO_KEY              = local.envs["DJANGO_KEY"]
-      AWS_ACCESS_KEY_ID       = local.envs["AWS_ACCESS_KEY_ID"]
-      AWS_SECRET_ACCESS_KEY   = local.envs["AWS_SECRET_ACCESS_KEY"]
-      AWS_REGION_NAME         = local.envs["AWS_REGION_NAME"]
-      AWS_S3_BUCKET_NAME      = local.envs["AWS_S3_BUCKET_NAME"]
-      AWS_COGNITO_DOMAIN      = local.envs["AWS_COGNITO_DOMAIN"]
-
-      DB_NAME                 = local.envs["DB_NAME"]
-      DB_USERNAME             = local.envs["DB_USERNAME"]
-      DB_PASSWORD             = local.envs["DB_PASSWORD"]
-      DB_PORT                 = local.envs["DB_PORT"]
-      DB_HOST                 = aws_db_instance.postgres_db.address
+      DJANGO_KEY            = local.envs["DJANGO_KEY"]
+      AWS_ACCESS_KEY_ID     = local.envs["AWS_ACCESS_KEY_ID"]
+      AWS_SECRET_ACCESS_KEY = local.envs["AWS_SECRET_ACCESS_KEY"]
+      AWS_REGION_NAME       = local.envs["AWS_REGION_NAME"]
+      AWS_S3_BUCKET_NAME    = local.envs["AWS_S3_BUCKET_NAME"]
+      AWS_COGNITO_DOMAIN    = local.envs["AWS_COGNITO_DOMAIN"]
+      DB_NAME               = local.envs["DB_NAME"]
+      DB_USERNAME           = local.envs["DB_USERNAME"]
+      DB_PASSWORD           = local.envs["DB_PASSWORD"]
+      DB_PORT               = local.envs["DB_PORT"]
+      DB_HOST               = aws_db_instance.postgres_db.address
+      AWS_LOG_GROUP_NAME    = aws_cloudwatch_log_group.log_group.name
     }
   )
 }

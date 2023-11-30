@@ -3,15 +3,30 @@
 # 
 
 variable "api_gateway_name" {
-    type        = string
-    default     = "api_gateway"
+  type    = string
+  default = "api_gateway"
 }
 
 variable "api_gateway_stage" {
-    type        = string
-    default     = "dev"
+  type    = string
+  default = "dev"
 }
 
+
+# 
+# CloudWatch Log Group
+# 
+
+resource "aws_cloudwatch_log_group" "log_group" {
+  name              = "noteally_log_group"
+  skip_destroy      = false
+  retention_in_days = 30
+
+  tags = {
+    Environment = "production"
+    Application = "Noteally"
+  }
+}
 
 # 
 # AWS CLOUDWATCH DASHBOARD
@@ -217,6 +232,19 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
             "stat" : "Average",
             "period" : 300,
             "title" : "Cognito - Last 5 minutes"
+          }
+        },
+        {
+          "type" : "log",
+          "x" : 0,
+          "y" : 25,
+          "width" : 24,
+          "height" : 6,
+          "properties" : {
+            "query" : "SOURCE '${aws_cloudwatch_log_group.log_group.name}' | fields @timestamp, @message, @log\n| sort @timestamp desc\n| limit 20",
+            "region" : "eu-north-1",
+            "stacked" : false,
+            "view" : "table"
           }
         }
       ]

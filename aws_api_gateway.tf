@@ -61,7 +61,7 @@ resource "aws_api_gateway_integration" "api_gateway_integration" {
 
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://${aws_lb.network_load_balancer.dns_name}:8000/api/v1/{proxy}/"
+  uri                     = "http://${aws_lb.network_load_balancer.dns_name}:8000/{proxy}/"
 
   connection_type = "VPC_LINK"
   connection_id   = aws_api_gateway_vpc_link.api_gateway_vpc_link.id
