@@ -21,18 +21,6 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
 
 
 #
-# API GATEWAY AUTHORIZER
-#
-
-resource "aws_api_gateway_authorizer" "api_authorizer" {
-  name          = "CognitoUserPoolAuthorizer"
-  type          = "COGNITO_USER_POOLS"
-  rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
-  provider_arns = [aws_cognito_user_pool.user_pool.arn]
-}
-
-
-#
 # API ENDPOINTS
 #
 
@@ -46,8 +34,8 @@ resource "aws_api_gateway_method" "api_gateway_method" {
   resource_id   = aws_api_gateway_resource.api_gateway_resource.id
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   http_method   = "ANY"
-  authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
+  authorization = "NONE"
+  # authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
 
   request_parameters = {
     "method.request.path.proxy" = true

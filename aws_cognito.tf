@@ -3,7 +3,7 @@
 #
 
 resource "aws_cognito_user_pool" "user_pool" {
-  name = "user-pool"
+  name = "user-pool-2"
 
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
@@ -67,7 +67,7 @@ resource "aws_cognito_user_pool" "user_pool" {
 #
 
 resource "aws_cognito_user_pool_domain" "user_pool_domain" {
-  domain       = "noteally"
+  domain       = "noteally2"
   user_pool_id = aws_cognito_user_pool.user_pool.id
 }
 
@@ -77,7 +77,7 @@ resource "aws_cognito_user_pool_domain" "user_pool_domain" {
 #
 
 resource "aws_cognito_user_pool_client" "userpool_client" {
-  name          = "userpool-client"
+  name          = "userpool-client-2"
   user_pool_id  = aws_cognito_user_pool.user_pool.id
   callback_urls = ["https://${local.envs["FRONTEND_BRANCH"]}.${aws_amplify_app.web_app.default_domain}/login?"]
   logout_urls   = ["https://${local.envs["FRONTEND_BRANCH"]}.${aws_amplify_app.web_app.default_domain}"]
@@ -85,6 +85,6 @@ resource "aws_cognito_user_pool_client" "userpool_client" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["implicit"]
   explicit_auth_flows                  = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_USER_SRP_AUTH"]
-  allowed_oauth_scopes                 = ["email", "openid"]
+  allowed_oauth_scopes                 = ["email", "openid", "profile"]
   supported_identity_providers         = ["COGNITO"]
 }
