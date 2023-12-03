@@ -35,7 +35,6 @@ resource "aws_api_gateway_method" "api_gateway_method" {
   rest_api_id   = aws_api_gateway_rest_api.api_gateway.id
   http_method   = "ANY"
   authorization = "NONE"
-  # authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
 
   request_parameters = {
     "method.request.path.proxy" = true

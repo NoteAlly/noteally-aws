@@ -34,8 +34,8 @@ if __name__=='__main__':
             
             environmentVariables = {
                 "VITE_API_URL": f"{api_gateway_url}dev",
-                "VITE_AUTH_LOGIN": f"https://{cognito_client_domain}.auth.{region}.amazoncognito.com/login?client_id={cognito_client_id}&response_type=token&scope=email+openid&redirect_uri=https://{branch}.{amplify_domain}/login?",
-                "VITE_AUTH_REGISTER": f"https://{cognito_client_domain}.auth.{region}.amazoncognito.com/signup?client_id={cognito_client_id}&response_type=token&scope=email+openid&redirect_uri=https://{branch}.{amplify_domain}/login?",
+                "VITE_AUTH_LOGIN": f"https://{cognito_client_domain}.auth.{region}.amazoncognito.com/login?client_id={cognito_client_id}&response_type=token&scope=email+openid+profile&redirect_uri=https://{branch}.{amplify_domain}/login?",
+                "VITE_AUTH_REGISTER": f"https://{cognito_client_domain}.auth.{region}.amazoncognito.com/signup?client_id={cognito_client_id}&response_type=token&scope=email+openid+profile&redirect_uri=https://{branch}.{amplify_domain}/login?",
                 "VITE_AUTH_LOGOUT": f"https://{cognito_client_domain}.auth.{region}.amazoncognito.com/logout?client_id={cognito_client_id}&logout_uri=https://{branch}.{amplify_domain}",
             }
         )
