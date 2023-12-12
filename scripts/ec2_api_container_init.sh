@@ -29,7 +29,8 @@ docker run -d -p 8000:8000 --name noteally-backend_app \
                             -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
                             -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
                             -e AWS_REGION_NAME=${AWS_REGION_NAME} \
-                            -e AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME} \
+                            -e AWS_S3_PRIVATE_BUCKET_NAME=${AWS_S3_PRIVATE_BUCKET_NAME} \
+                            -e AWS_S3_PUBLIC_BUCKET_NAME=${AWS_S3_PUBLIC_BUCKET_NAME} \
                             -e AWS_COGNITO_DOMAIN=${AWS_COGNITO_DOMAIN} \
                             -e DB_NAME=${DB_NAME} \
                             -e DB_USERNAME=${DB_USERNAME} \
