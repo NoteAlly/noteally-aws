@@ -3,7 +3,7 @@
 This repository contains the scripts used to create the AWS infrastructure for the NoteAlly project. The scripts are written in Terraform, and some final configurations are made using the Boto3 library for Python.
 
 The infrastructure consists of the following resources:
-![Infrastructure Resources](images/infrastructure_v1.png)
+![Infrastructure Resources](images/aws-network-architecture.png)
 
 ## How to run
 
