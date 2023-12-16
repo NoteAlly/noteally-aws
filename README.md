@@ -62,7 +62,7 @@ pip install -r requirements.txt
 On the root directory of the project, run the following command:
     
 ```bash
-./scripts/run.sh
+./scripts/build.sh
 ```
 
 ### 7. Destroy the infrastructure
