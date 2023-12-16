@@ -1,0 +1,412 @@
+[
+  {
+    "name": "info-service",
+    "image": "${info_image}",
+    "cpu": ${fargate_cpu},
+    "memory": ${fargate_memory},
+    "networkMode": "awsvpc",
+
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group_name}",
+          "awslogs-region": "${aws_region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
+
+    "portMappings": [
+      {
+        "containerPort": ${info_container_port},
+        "hostPort": ${info_host_port},
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+
+    "essential": true,
+
+    "environment": [
+      {
+          "name": "DJANGO_KEY",
+          "value": "${django_key}"
+      },
+      {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${aws_access_key_id}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "${aws_account_id}"
+      },
+      {
+          "name": "AWS_REGION_NAME",
+          "value": "${aws_region}"
+      },
+      {
+          "name": "AWS_COGNITO_DOMAIN",
+          "value": "${aws_cognito_domain}"
+      },
+      {
+        "name": "AWS_S3_PRIVATE_BUCKET_NAME",
+          "value": "${aws_s3_private_bucket_name}"
+      },
+      {
+          "name": "AWS_S3_PUBLIC_BUCKET_NAME",
+          "value": "${aws_s3_public_bucket_name}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+          "name": "DB_USERNAME",
+          "value": "${db_username}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+          "name": "DB_PORT",
+          "value": "${db_port}"
+      }
+    ]
+  },
+  {
+    "name": "auth-service",
+    "image": "${auth_image}",
+    "cpu": ${fargate_cpu},
+    "memory": ${fargate_memory},
+    "networkMode": "awsvpc",
+
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group_name}",
+          "awslogs-region": "${aws_region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
+
+    "portMappings": [
+      {
+        "containerPort": ${auth_container_port},
+        "hostPort": ${auth_host_port},
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+
+    "essential": true,
+
+    "environment": [
+      {
+          "name": "DJANGO_KEY",
+          "value": "${django_key}"
+      },
+      {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${aws_access_key_id}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "${aws_account_id}"
+      },
+      {
+          "name": "AWS_REGION_NAME",
+          "value": "${aws_region}"
+      },
+      {
+          "name": "AWS_COGNITO_DOMAIN",
+          "value": "${aws_cognito_domain}"
+      },
+      {
+        "name": "AWS_S3_PRIVATE_BUCKET_NAME",
+          "value": "${aws_s3_private_bucket_name}"
+      },
+      {
+          "name": "AWS_S3_PUBLIC_BUCKET_NAME",
+          "value": "${aws_s3_public_bucket_name}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+          "name": "DB_USERNAME",
+          "value": "${db_username}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+          "name": "DB_PORT",
+          "value": "${db_port}"
+      }
+    ]
+  },
+  {
+    "name": "material-service",
+    "image": "${material_image}",
+    "cpu": ${fargate_cpu},
+    "memory": ${fargate_memory},
+    "networkMode": "awsvpc",
+
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group_name}",
+          "awslogs-region": "${aws_region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
+
+    "portMappings": [
+      {
+        "containerPort": ${material_container_port},
+        "hostPort": ${material_host_port},
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+
+    "essential": true,
+
+    "environment": [
+      {
+          "name": "DJANGO_KEY",
+          "value": "${django_key}"
+      },
+      {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${aws_access_key_id}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "${aws_account_id}"
+      },
+      {
+          "name": "AWS_REGION_NAME",
+          "value": "${aws_region}"
+      },
+      {
+          "name": "AWS_COGNITO_DOMAIN",
+          "value": "${aws_cognito_domain}"
+      },
+      {
+        "name": "AWS_S3_PRIVATE_BUCKET_NAME",
+          "value": "${aws_s3_private_bucket_name}"
+      },
+      {
+          "name": "AWS_S3_PUBLIC_BUCKET_NAME",
+          "value": "${aws_s3_public_bucket_name}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+          "name": "DB_USERNAME",
+          "value": "${db_username}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+          "name": "DB_PORT",
+          "value": "${db_port}"
+      }
+    ]
+  },
+  {
+    "name": "tutor-service",
+    "image": "${tutor_image}",
+    "cpu": ${fargate_cpu},
+    "memory": ${fargate_memory},
+    "networkMode": "awsvpc",
+
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group_name}",
+          "awslogs-region": "${aws_region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
+
+    "portMappings": [
+      {
+        "containerPort": ${tutor_container_port},
+        "hostPort": ${tutor_host_port},
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+
+    "essential": true,
+
+    "environment": [
+      {
+          "name": "DJANGO_KEY",
+          "value": "${django_key}"
+      },
+      {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${aws_access_key_id}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "${aws_account_id}"
+      },
+      {
+          "name": "AWS_REGION_NAME",
+          "value": "${aws_region}"
+      },
+      {
+          "name": "AWS_COGNITO_DOMAIN",
+          "value": "${aws_cognito_domain}"
+      },
+      {
+        "name": "AWS_S3_PRIVATE_BUCKET_NAME",
+          "value": "${aws_s3_private_bucket_name}"
+      },
+      {
+          "name": "AWS_S3_PUBLIC_BUCKET_NAME",
+          "value": "${aws_s3_public_bucket_name}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+          "name": "DB_USERNAME",
+          "value": "${db_username}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+          "name": "DB_PORT",
+          "value": "${db_port}"
+      }
+    ]
+  },
+  {
+    "name": "user-service",
+    "image": "${user_image}",
+    "cpu": ${fargate_cpu},
+    "memory": ${fargate_memory},
+    "networkMode": "awsvpc",
+
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group_name}",
+          "awslogs-region": "${aws_region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
+
+    "portMappings": [
+      {
+        "containerPort": ${user_container_port},
+        "hostPort": ${user_host_port},
+        "protocol": "tcp",
+        "appProtocol": "http"
+      }
+    ],
+
+    "essential": true,
+
+    "environment": [
+      {
+          "name": "DJANGO_KEY",
+          "value": "${django_key}"
+      },
+      {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "${aws_access_key_id}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "AWS_ACCOUNT_ID",
+        "value": "${aws_account_id}"
+      },
+      {
+          "name": "AWS_REGION_NAME",
+          "value": "${aws_region}"
+      },
+      {
+          "name": "AWS_COGNITO_DOMAIN",
+          "value": "${aws_cognito_domain}"
+      },
+      {
+        "name": "AWS_S3_PRIVATE_BUCKET_NAME",
+          "value": "${aws_s3_private_bucket_name}"
+      },
+      {
+          "name": "AWS_S3_PUBLIC_BUCKET_NAME",
+          "value": "${aws_s3_public_bucket_name}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
+          "name": "DB_USERNAME",
+          "value": "${db_username}"
+      },
+      {
+        "name": "DB_HOST",
+        "value": "${db_host}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+          "name": "DB_PORT",
+          "value": "${db_port}"
+      }
+    ]
+  }
+]

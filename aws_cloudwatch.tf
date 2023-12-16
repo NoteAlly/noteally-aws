@@ -84,50 +84,40 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
           }
         },
         {
-          "height" : 3,
-          "width" : 12,
-          "y" : 11,
-          "x" : 0,
-          "type" : "metric",
-          "properties" : {
-            "metrics" : [
-              ["AWS/EC2", "CPUUtilization", "InstanceId", "${aws_instance.ec2_api.id}", { "label" : "CPU Usage (%)" }],
-              [".", "NetworkOut", ".", ".", { "label" : "Network Out (bytes)", "region" : "eu-north-1" }],
-              [".", "NetworkIn", ".", ".", { "label" : "Network In (bytes)", "region" : "eu-north-1" }],
-              [".", "CPUCreditUsage", ".", ".", { "label" : "CPU Credit Usage", "region" : "eu-north-1" }]
-            ],
-            "view" : "singleValue",
-            "region" : "eu-north-1",
-            "stat" : "Average",
-            "period" : 300,
-            "legend" : {
-              "position" : "bottom"
-            },
-            "stacked" : true,
-            "setPeriodToTimeRange" : true,
-            "title" : "EC2 (Rest API) - Last 5 minutes"
-          }
+            "height" : 3,
+            "width" : 12,
+            "y" : 11,
+            "x" : 0,
+            "type": "metric",
+            "properties": {
+                "view": "singleValue",
+                "metrics": [
+                    [ "ECS/ContainerInsights", "CpuUtilized", "ServiceName", "noteally_service", "ClusterName", "noteally_cluster" ],
+                    [ ".", "NetworkTxBytes", ".", ".", ".", "." ],
+                    [ ".", "MemoryUtilized", ".", ".", ".", "." ],
+                    [ ".", "NetworkRxBytes", ".", ".", ".", "." ]
+                ],
+                "region": "eu-north-1"
+            }
         },
         {
-          "height" : 8,
-          "width" : 12,
-          "y" : 14,
-          "x" : 0,
-          "type" : "metric",
-          "properties" : {
-            "metrics" : [
-              ["AWS/EC2", "CPUUtilization", "InstanceId", "${aws_instance.ec2_api.id}", { "label" : "CPU Usabe (%)" }],
-              [".", "CPUCreditUsage", ".", ".", { "label" : "CPU Credit Usage" }],
-              [".", "NetworkOut", ".", ".", { "label" : "Network Out (bytes)" }],
-              [".", "NetworkIn", ".", ".", { "label" : "Network In (bytes)" }]
-            ],
-            "view" : "timeSeries",
-            "stacked" : false,
-            "region" : "eu-north-1",
-            "stat" : "Average",
-            "period" : 300,
-            "title" : "EC2 (Rest API) - History"
-          }
+            "height" : 8,
+            "width" : 12,
+            "y" : 14,
+            "x" : 0,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "ECS/ContainerInsights", "NetworkRxBytes", "ServiceName", "noteally_service", "ClusterName", "noteally_cluster" ],
+                    [ ".", "CpuUtilized", ".", ".", ".", "." ],
+                    [ ".", "NetworkTxBytes", ".", ".", ".", "." ],
+                    [ ".", "MemoryUtilized", ".", ".", ".", "." ],
+                    [ ".", "EphemeralStorageUtilized", ".", ".", ".", "." ]
+                ],
+                "region": "eu-north-1"
+            }
         },
         {
             "height": 3,
@@ -213,38 +203,6 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
             "stat" : "Average",
             "period" : 300,
             "title" : "RDS PostgreSQL - History"
-          }
-        },
-        {
-          "height" : 3,
-          "width" : 24,
-          "y" : 22,
-          "x" : 0,
-          "type" : "metric",
-          "properties" : {
-            "metrics" : [
-              ["AWS/Cognito", "SignInSuccesses", "UserPool", "eu-north-1_4Ghk18kCi", "UserPoolClient", "${aws_cognito_user_pool_client.userpool_client.id}", { "label" : "SignIn Successes" }],
-              [".", "SignUpSuccesses", ".", ".", ".", ".", { "label" : "SignUp Successes" }],
-              [".", "TokenRefreshSuccesses", ".", ".", ".", ".", { "label" : "Token Refresh Successes" }]
-            ],
-            "view" : "singleValue",
-            "region" : "eu-north-1",
-            "stat" : "Average",
-            "period" : 300,
-            "title" : "Cognito - Last 5 minutes"
-          }
-        },
-        {
-          "type" : "log",
-          "x" : 0,
-          "y" : 25,
-          "width" : 24,
-          "height" : 6,
-          "properties" : {
-            "query" : "SOURCE '${aws_cloudwatch_log_group.log_group.name}' | fields @timestamp, @message, @log\n| sort @timestamp desc\n| limit 20",
-            "region" : "eu-north-1",
-            "stacked" : false,
-            "view" : "table"
           }
         }
       ]

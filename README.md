@@ -29,6 +29,7 @@ Create a file named .env in the root directory of the project and add the follow
 # AWS
 AWS_ACCESS_KEY_ID=<your_aws_access_key_id>
 AWS_SECRET_ACCESS_KEY=<your_aws_secret_access_key>
+AWS_ACCOUNT_ID=<your_aws_account_id>
 AWS_DEFAULT_REGION=<your_region_name>
 AWS_S3_BUCKET_NAME=<your_s3_bucket_name>
 

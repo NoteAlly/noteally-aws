@@ -51,26 +51,6 @@ output "cognito_logout_url" {
 
 
 #
-# AWS PUBLIC EC2
-#
-
-output "ec2_public_ip" {
-  value       = aws_instance.ec2_public.public_ip
-  description = "EC2 Public IP"
-}
-
-
-#
-# AWS PRIVATE EC2
-#
-
-output "ec2_private_ip" {
-  value       = aws_instance.ec2_api.private_ip
-  description = "EC2 Private IP"
-}
-
-
-#
 # AWS RDS - POSTGRES
 #
 
